@@ -11,11 +11,13 @@ const Login = ({ onLoginSuccess }) => {
         e.preventDefault();
         const loginData = { email, password, fullname, student_id: studentId };
 
-        try {   
-            const res = awaitaxios.post(`${import.meta.env.VITE_API_URL}/api/auth`, loginData);
+        // Use Vite env var VITE_API_BASE when available, otherwise fall back to localhost
+        const API_BASE = import.meta.env.VITE_API_BASE || 'http://127.0.0.1:8000';
+
+        try {
+            const res = await axios.post(`${API_BASE}/api/auth`, loginData);
             if (res.data.user) {
-                localStorage.setItem('userEmail', res.data.user.email);
-                localStorage.setItem('userName', res.data.user.fullname);
+                // let App handle storing studentId and other user info
                 alert(res.data.message);
                 onLoginSuccess(res.data.user);
             }

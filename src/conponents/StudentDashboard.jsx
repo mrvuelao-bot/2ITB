@@ -12,16 +12,16 @@ const StudentDashboard = ({ onLogout }) => {
 
     const fetchData = async () => {
     try {
-        // ບ່ອນທີ 1: ເຕີມ https:// ແລະ /api/students ທາງທ້າຍ
-        const resList = await axios.get('https://student-attendance-backend-three.vercel.app/api/students');
-        
-        // ບ່ອນທີ 2: ເຕີມ https:// ແລະ /api/students/summary ທາງທ້າຍ
-        const resSum = await axios.get('https://student-attendance-backend-three.vercel.app/api/students/summary');
-        
+        const API_BASE = import.meta.env.VITE_API_BASE || 'http://127.0.0.1:8000';
+
+        // backend exposes attendance endpoints: /api/attendance-list and /api/attendance-summary
+        const resList = await axios.get(`${API_BASE}/api/attendance-list`);
+        const resSum = await axios.get(`${API_BASE}/api/attendance-summary`);
+
         setList(resList.data);
         setSummary(resSum.data);
     } catch (err) { 
-        console.error("Fetch Data Error:", err);
+        console.error("Fetch Data Error:", err);    
     }
 };
 
@@ -30,7 +30,8 @@ const StudentDashboard = ({ onLogout }) => {
     const handleCheckIn = async () => {
         if (!email) return alert("ບໍ່ພົບອີເມວ");
         try {
-            const res = await axios.post('https://student-attendance-backend-three.vercel.app/api/checkin', { email });
+            const API_BASE = import.meta.env.VITE_API_BASE || 'http://127.0.0.1:8000';
+            const res = await axios.post(`${API_BASE}/api/checkin`, { email });
             alert(res.data.message);
             fetchData(); 
         } catch (err) { 
