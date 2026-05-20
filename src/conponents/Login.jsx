@@ -11,8 +11,8 @@ const Login = ({ onLoginSuccess }) => {
         e.preventDefault();
         const loginData = { email, password, fullname, student_id: studentId };
 
-        try {
-            const res = await axios.post('http://localhost:8000/api/auth', loginData);
+        try {   
+            const res = awaitaxios.post(`${import.meta.env.VITE_API_URL}/api/auth`, loginData);
             if (res.data.user) {
                 localStorage.setItem('userEmail', res.data.user.email);
                 localStorage.setItem('userName', res.data.user.fullname);
