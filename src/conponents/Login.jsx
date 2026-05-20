@@ -11,8 +11,8 @@ const Login = ({ onLoginSuccess }) => {
         e.preventDefault();
         const loginData = { email, password, fullname, student_id: studentId };
 
-        // Use Vite env var VITE_API_BASE when available, otherwise fall back to localhost
-        const API_BASE = import.meta.env.VITE_API_BASE || 'http://127.0.0.1:8000';
+        // Use Vite env var VITE_API_BASE or VITE_API_URL when available, otherwise fall back to localhost
+        const API_BASE = import.meta.env.VITE_API_BASE || import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
 
         try {
             const res = await axios.post(`${API_BASE}/api/auth`, loginData);
