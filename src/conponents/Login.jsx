@@ -11,8 +11,9 @@ const Login = ({ onLoginSuccess }) => {
         e.preventDefault();
         const loginData = { email, password, fullname, student_id: studentId };
 
-        // Use Vite env var VITE_API_BASE or VITE_API_URL when available, otherwise fall back to localhost
-        const API_BASE = import.meta.env.VITE_API_BASE || import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+        // Use Vite env var VITE_API_BASE or VITE_API_URL when available.
+        // In production, default to the deployed backend URL instead of localhost.
+        const API_BASE = import.meta.env.VITE_API_BASE || import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://student-attendance-backend-three.vercel.app' : 'http://127.0.0.1:8000');
 
         try {
             const res = await axios.post(`${API_BASE}/api/auth`, loginData);

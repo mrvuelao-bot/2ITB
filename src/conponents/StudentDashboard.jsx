@@ -12,7 +12,7 @@ const StudentDashboard = ({ onLogout }) => {
 
     const fetchData = async () => {
     try {
-        const API_BASE = import.meta.env.VITE_API_BASE || import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+        const API_BASE = import.meta.env.VITE_API_BASE || import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://student-attendance-backend-three.vercel.app' : 'http://127.0.0.1:8000');
 
         // backend exposes attendance endpoints: /api/attendance-list and /api/attendance-summary
         const resList = await axios.get(`${API_BASE}/api/attendance-list`);
@@ -30,7 +30,7 @@ const StudentDashboard = ({ onLogout }) => {
     const handleCheckIn = async () => {
         if (!email) return alert("ບໍ່ພົບອີເມວ");
         try {
-            const API_BASE = import.meta.env.VITE_API_BASE || import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+            const API_BASE = import.meta.env.VITE_API_BASE || import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://student-attendance-backend-three.vercel.app' : 'http://127.0.0.1:8000');
             const res = await axios.post(`${API_BASE}/api/checkin`, { email });
             alert(res.data.message);
             fetchData(); 
