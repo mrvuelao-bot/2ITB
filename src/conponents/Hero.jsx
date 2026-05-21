@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import HeroImg from '../assets/heroImg.png';
+import HeroImg from '../assets/heroImg.webp';
 
 const Hero = () => {
   const text = "Student Attendance System";
